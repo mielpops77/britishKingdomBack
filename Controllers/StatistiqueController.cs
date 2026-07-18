@@ -54,10 +54,48 @@ namespace British_Kingdom_back.Controllers
 
                     await command.ExecuteNonQueryAsync();
                 }
+
+                var logQuery = "INSERT INTO VisitLog (ProfilId, VisitedAt) VALUES (@ProfilId, @VisitedAt)";
+                using (var logCommand = new SqlCommand(logQuery, connection))
+                {
+                    logCommand.Parameters.AddWithValue("@ProfilId", statistique.ProfilId);
+                    logCommand.Parameters.AddWithValue("@VisitedAt", DateTime.UtcNow);
+                    await logCommand.ExecuteNonQueryAsync();
+                }
             }
 
             return Ok();
         }
+
+      [Authorize]
+      [HttpGet("recent/{profilId}")]
+      public async Task<IActionResult> GetRecentVisits(int profilId, [FromQuery] int limit = 20)
+      {
+          var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+          using (var connection = new SqlConnection(connectionString))
+          {
+              await connection.OpenAsync();
+
+              var query = "SELECT TOP (@Limit) VisitedAt FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
+              using (var command = new SqlCommand(query, connection))
+              {
+                  command.Parameters.AddWithValue("@ProfilId", profilId);
+                  command.Parameters.AddWithValue("@Limit", limit);
+
+                  var visits = new System.Collections.Generic.List<DateTime>();
+                  using (var reader = await command.ExecuteReaderAsync())
+                  {
+                      while (await reader.ReadAsync())
+                      {
+                          visits.Add(reader.GetDateTime(reader.GetOrdinal("VisitedAt")));
+                      }
+                  }
+
+                  return Ok(visits);
+              }
+          }
+      }
 
       [Authorize]
       [HttpGet("{profilId}")]
