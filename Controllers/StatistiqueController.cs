@@ -148,7 +148,7 @@ namespace British_Kingdom_back.Controllers
                       {
                           visits.Add(new
                           {
-                              VisitedAt = reader.GetDateTime(reader.GetOrdinal("VisitedAt")),
+                              VisitedAt = DateTime.SpecifyKind(reader.GetDateTime(reader.GetOrdinal("VisitedAt")), DateTimeKind.Utc),
                               Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location"))
                           });
                       }
