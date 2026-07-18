@@ -26,7 +26,7 @@ namespace British_Kingdom_back.Controllers
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (var command = new SqlCommand("INSERT INTO Cats (Name, ProfilId, Robe, EyeColor, Sex, Breed, DateOfBirth, UrlProfil, UrlProfilMother, UrlProfilFather, sailliesExterieures, Pedigree, Images) OUTPUT INSERTED.ID VALUES (@Name, @ProfilId, @Robe, @EyeColor, @Sex, @Breed, @DateOfBirth, @UrlProfil, @UrlProfilMother, @UrlProfilFather, @sailliesExterieures, @Pedigree, @Images)", connection))
+                using (var command = new SqlCommand("INSERT INTO Cats (Name, ProfilId, Robe, EyeColor, Sex, Breed, DateOfBirth, UrlProfil, UrlProfilMother, UrlProfilFather, sailliesExterieures, Pedigree, Images, Archivee) OUTPUT INSERTED.ID VALUES (@Name, @ProfilId, @Robe, @EyeColor, @Sex, @Breed, @DateOfBirth, @UrlProfil, @UrlProfilMother, @UrlProfilFather, @sailliesExterieures, @Pedigree, @Images, @Archivee)", connection))
                 {
                     // Ajout des paramètres comme avant
                     command.Parameters.AddWithValue("@Name", cat.Name);
@@ -42,6 +42,7 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@sailliesExterieures", cat.sailliesExterieures);
                     command.Parameters.AddWithValue("@Pedigree", cat.Pedigree);
                     command.Parameters.AddWithValue("@Images", string.Join(",", cat.Images ?? Array.Empty<string>()));
+                    command.Parameters.AddWithValue("@Archivee", cat.Archivee);
 
                     // Exécuter la commande et récupérer l'identifiant généré
                     newId = (int)command.ExecuteScalar();
@@ -86,7 +87,8 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 sailliesExterieures = reader.GetString(reader.GetOrdinal("sailliesExterieures")),
                                 Pedigree = reader.GetString(reader.GetOrdinal("Pedigree")),
-                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(',')
+                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(','),
+                                Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee"))
                             };
                             cats.Add(cat);
                         }
@@ -131,7 +133,8 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 sailliesExterieures = reader.GetString(reader.GetOrdinal("sailliesExterieures")),
                                 Pedigree = reader.GetString(reader.GetOrdinal("Pedigree")),
-                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(',')
+                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(','),
+                                Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee"))
                             };
 
                             return Ok(cat);
@@ -145,6 +148,29 @@ namespace British_Kingdom_back.Controllers
             }
         }
 
+
+        [Authorize]
+        [HttpPatch("{id}/archive")]
+        public IActionResult SetArchiveStatus(int id, [FromBody] CatArchiveRequest request)
+        {
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand("UPDATE Cats SET Archivee = @Archivee WHERE Id = @Id", connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@Archivee", request.Archivee);
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected <= 0)
+                        return NotFound();
+
+                    return Ok();
+                }
+            }
+        }
 
         [Authorize]
         [HttpDelete("{id}")]
@@ -186,7 +212,7 @@ namespace British_Kingdom_back.Controllers
                     "UPDATE Cats " + "SET Name = @Name, ProfilId = @ProfilId, Robe = @Robe, EyeColor = @EyeColor, Sex = @Sex, Breed = @Breed, " +
                     "DateOfBirth = @DateOfBirth, UrlProfil = @UrlProfil, UrlProfilMother = @UrlProfilMother, " +
                     "UrlProfilFather = @UrlProfilFather, sailliesExterieures = @sailliesExterieures, Pedigree = @Pedigree," +
-                    "Images = @Images WHERE Id = @Id", connection))
+                    "Images = @Images, Archivee = @Archivee WHERE Id = @Id", connection))
                 {
                     // Ajoutez les paramètres comme avant
                     command.Parameters.AddWithValue("@Id", id);
@@ -203,6 +229,7 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@sailliesExterieures", cat.sailliesExterieures);
                     command.Parameters.AddWithValue("@Pedigree", cat.Pedigree);
                     command.Parameters.AddWithValue("@Images", string.Join(",", cat.Images ?? Array.Empty<string>()));
+                    command.Parameters.AddWithValue("@Archivee", cat.Archivee);
 
                     try
                     {
@@ -235,7 +262,7 @@ namespace British_Kingdom_back.Controllers
             string sex = GetSexById(catId, connection);
 
             // Définir le parentType en fonction du sexe du chat
-            var parentType = (sex == "female") ? "Maman" : "Papa";
+            var parentType = (sex == "Femelle") ? "Maman" : "Papa";
 
             var parentColumn = (parentType == "Maman") ? "IdMaman" : "IdPapa";
             var parentProfileColumn = (parentType == "Maman") ? "UrlProfilMother" : "UrlProfilFather";
@@ -280,6 +307,11 @@ namespace British_Kingdom_back.Controllers
 
 
 
+    }
+
+    public class CatArchiveRequest
+    {
+        public bool Archivee { get; set; }
     }
 }
 

@@ -16,7 +16,8 @@ namespace British_Kingdom_back.Models
         public string UrlProfilFather { get; set; } = string.Empty;
         public string sailliesExterieures { get; set; } = string.Empty;
         public string Pedigree { get; set; } = string.Empty;
-        
+        public bool Archivee { get; set; }
+
          public string[]? Images { get; set; }
 
 
