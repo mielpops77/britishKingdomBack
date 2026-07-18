@@ -23,30 +23,37 @@ namespace British_Kingdom_back.Controllers
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             int newId;
 
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                using (var command = new SqlCommand("INSERT INTO Cats (Name, ProfilId, Robe, EyeColor, Sex, Breed, DateOfBirth, UrlProfil, UrlProfilMother, UrlProfilFather, sailliesExterieures, Pedigree, Images, Archivee) OUTPUT INSERTED.ID VALUES (@Name, @ProfilId, @Robe, @EyeColor, @Sex, @Breed, @DateOfBirth, @UrlProfil, @UrlProfilMother, @UrlProfilFather, @sailliesExterieures, @Pedigree, @Images, @Archivee)", connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    // Ajout des paramètres comme avant
-                    command.Parameters.AddWithValue("@Name", cat.Name);
-                    command.Parameters.AddWithValue("@ProfilId", cat.ProfilId);
-                    command.Parameters.AddWithValue("@Robe", cat.Robe);
-                    command.Parameters.AddWithValue("@EyeColor", cat.EyeColor);
-                    command.Parameters.AddWithValue("@DateOfBirth", cat.DateOfBirth);
-                    command.Parameters.AddWithValue("@Sex", cat.Sex);
-                    command.Parameters.AddWithValue("@Breed", cat.Breed);
-                    command.Parameters.AddWithValue("@UrlProfil", cat.UrlProfil);
-                    command.Parameters.AddWithValue("@UrlProfilMother", cat.UrlProfilMother);
-                    command.Parameters.AddWithValue("@UrlProfilFather", cat.UrlProfilFather);
-                    command.Parameters.AddWithValue("@sailliesExterieures", cat.sailliesExterieures);
-                    command.Parameters.AddWithValue("@Pedigree", cat.Pedigree);
-                    command.Parameters.AddWithValue("@Images", string.Join(",", cat.Images ?? Array.Empty<string>()));
-                    command.Parameters.AddWithValue("@Archivee", cat.Archivee);
+                    connection.Open();
+                    using (var command = new SqlCommand("INSERT INTO Cats (Name, ProfilId, Robe, EyeColor, Sex, Breed, DateOfBirth, UrlProfil, UrlProfilMother, UrlProfilFather, sailliesExterieures, Pedigree, Images, Archivee) OUTPUT INSERTED.ID VALUES (@Name, @ProfilId, @Robe, @EyeColor, @Sex, @Breed, @DateOfBirth, @UrlProfil, @UrlProfilMother, @UrlProfilFather, @sailliesExterieures, @Pedigree, @Images, @Archivee)", connection))
+                    {
+                        // Ajout des paramètres comme avant
+                        command.Parameters.AddWithValue("@Name", cat.Name);
+                        command.Parameters.AddWithValue("@ProfilId", cat.ProfilId);
+                        command.Parameters.AddWithValue("@Robe", cat.Robe);
+                        command.Parameters.AddWithValue("@EyeColor", cat.EyeColor);
+                        command.Parameters.AddWithValue("@DateOfBirth", cat.DateOfBirth);
+                        command.Parameters.AddWithValue("@Sex", cat.Sex);
+                        command.Parameters.AddWithValue("@Breed", cat.Breed);
+                        command.Parameters.AddWithValue("@UrlProfil", cat.UrlProfil);
+                        command.Parameters.AddWithValue("@UrlProfilMother", cat.UrlProfilMother);
+                        command.Parameters.AddWithValue("@UrlProfilFather", cat.UrlProfilFather);
+                        command.Parameters.AddWithValue("@sailliesExterieures", cat.sailliesExterieures);
+                        command.Parameters.AddWithValue("@Pedigree", cat.Pedigree);
+                        command.Parameters.AddWithValue("@Images", string.Join(",", cat.Images ?? Array.Empty<string>()));
+                        command.Parameters.AddWithValue("@Archivee", cat.Archivee);
 
-                    // Exécuter la commande et récupérer l'identifiant généré
-                    newId = (int)command.ExecuteScalar();
+                        // Exécuter la commande et récupérer l'identifiant généré
+                        newId = (int)command.ExecuteScalar();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Une erreur s'est produite lors de la création du chat", error = ex.Message });
             }
 
             cat.Id = newId;
