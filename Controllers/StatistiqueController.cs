@@ -160,6 +160,84 @@ namespace British_Kingdom_back.Controllers
       }
 
       [Authorize]
+      [HttpGet("daily/{profilId}")]
+      public async Task<IActionResult> GetDailyStats(int profilId, [FromQuery] int days = 14)
+      {
+          var connectionString = _configuration.GetConnectionString("DefaultConnection");
+          var startDate = DateTime.Today.AddDays(-(days - 1));
+
+          var countsByDate = new System.Collections.Generic.Dictionary<DateTime, int>();
+
+          using (var connection = new SqlConnection(connectionString))
+          {
+              await connection.OpenAsync();
+
+              var query = "SELECT DateVisite, NbrVisitesJour FROM Statistique WHERE ProfilId = @ProfilId AND DateVisite >= @StartDate";
+              using (var command = new SqlCommand(query, connection))
+              {
+                  command.Parameters.AddWithValue("@ProfilId", profilId);
+                  command.Parameters.AddWithValue("@StartDate", startDate);
+
+                  using (var reader = await command.ExecuteReaderAsync())
+                  {
+                      while (await reader.ReadAsync())
+                      {
+                          countsByDate[reader.GetDateTime(reader.GetOrdinal("DateVisite")).Date] = reader.GetInt32(reader.GetOrdinal("NbrVisitesJour"));
+                      }
+                  }
+              }
+          }
+
+          var result = new System.Collections.Generic.List<object>();
+          for (var d = startDate; d <= DateTime.Today; d = d.AddDays(1))
+          {
+              result.Add(new { Date = d, Count = countsByDate.TryGetValue(d, out var c) ? c : 0 });
+          }
+
+          return Ok(result);
+      }
+
+      [Authorize]
+      [HttpGet("locations/{profilId}")]
+      public async Task<IActionResult> GetTopLocations(int profilId, [FromQuery] int days = 30, [FromQuery] int limit = 5)
+      {
+          var connectionString = _configuration.GetConnectionString("DefaultConnection");
+          var startDate = DateTime.UtcNow.AddDays(-days);
+
+          using (var connection = new SqlConnection(connectionString))
+          {
+              await connection.OpenAsync();
+
+              var query = @"SELECT TOP (@Limit) Location, COUNT(*) AS Cnt
+                            FROM VisitLog
+                            WHERE ProfilId = @ProfilId AND VisitedAt >= @StartDate AND Location IS NOT NULL AND Location <> 'Inconnu'
+                            GROUP BY Location
+                            ORDER BY Cnt DESC";
+              using (var command = new SqlCommand(query, connection))
+              {
+                  command.Parameters.AddWithValue("@ProfilId", profilId);
+                  command.Parameters.AddWithValue("@StartDate", startDate);
+                  command.Parameters.AddWithValue("@Limit", limit);
+
+                  var locations = new System.Collections.Generic.List<object>();
+                  using (var reader = await command.ExecuteReaderAsync())
+                  {
+                      while (await reader.ReadAsync())
+                      {
+                          locations.Add(new
+                          {
+                              Location = reader.GetString(reader.GetOrdinal("Location")),
+                              Count = reader.GetInt32(reader.GetOrdinal("Cnt"))
+                          });
+                      }
+                  }
+
+                  return Ok(locations);
+              }
+          }
+      }
+
+      [Authorize]
       [HttpGet("{profilId}")]
 public async Task<IActionResult> GetStats(int profilId)
 {
