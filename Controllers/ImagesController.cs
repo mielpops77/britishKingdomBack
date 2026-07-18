@@ -11,6 +11,7 @@ using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace British_Kingdom_back.Controllers
 {
@@ -72,6 +73,7 @@ namespace British_Kingdom_back.Controllers
 
 
             } */
+        [Authorize]
         [HttpPost("upload")]
         public async Task<IActionResult> UploadImages(List<IFormFile> files, [FromQuery] string directory)
         {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj": {}
+    "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj": {}
   },
   "projects": {
-    "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj": {
+    "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
+        "projectUniqueName": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
         "projectName": "British-Kingdom-back",
-        "projectPath": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
+        "projectPath": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
         "packagesPath": "C:\\Users\\amiel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\obj\\",
+        "outputPath": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\amiel\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -32,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -136,7 +141,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.422/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

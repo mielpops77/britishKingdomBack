@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace British_Kingdom_back.Controllers
 {
@@ -190,6 +191,7 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
 
 
 
+        [Authorize]
         [HttpPost]
         public IActionResult CreatePortee(Portee portee)
         {
@@ -300,6 +302,7 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
 
 
 
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdatePortee(int id, Portee portee)
         {
@@ -386,6 +389,7 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
 
 
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeletePortee(int id)
         {

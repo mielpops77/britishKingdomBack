@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using British_Kingdom_back.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace British_Kingdom_back.Controllers
 {
@@ -58,6 +59,7 @@ namespace British_Kingdom_back.Controllers
             return Ok();
         }
 
+      [Authorize]
       [HttpGet("{profilId}")]
 public async Task<IActionResult> GetStats(int profilId)
 {

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Globalization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace British_Kingdom_back.Controllers
 {
@@ -68,6 +69,7 @@ namespace British_Kingdom_back.Controllers
             return Ok(chatons);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteChaton(int id)
         {
@@ -108,6 +110,7 @@ namespace British_Kingdom_back.Controllers
                 }
             }
         }
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateChaton(int id, [FromBody] Chaton updatedChaton)
         {
@@ -179,6 +182,7 @@ namespace British_Kingdom_back.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateChaton([FromBody] Chaton newChaton)
         {

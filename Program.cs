@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +47,22 @@ builder.Services.AddCors(options =>
         }); */
 });
 
-// Add authentication
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 8;
+})
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+// Add authentication — registered after AddIdentity so JWT Bearer wins as the
+// default authenticate/challenge scheme instead of Identity's cookie scheme
+// (otherwise unauthenticated API calls 302-redirect instead of returning 401).
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -54,22 +70,20 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
+    var jwtKey = builder.Configuration["Jwt:Key"];
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        // Ajoutez ici vos paramètres de validation des jetons
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!)),
+        ClockSkew = TimeSpan.FromMinutes(2)
     };
-    options.SaveToken = true; // Permet d'enregistrer le jeton dans le cookie
+    options.SaveToken = true;
 });
-
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
 
 // Add email service
 builder.Services.AddSingleton<IEmailService, EmailService>();

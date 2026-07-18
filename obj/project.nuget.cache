@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "npSttIMJYTcFZSyJANYWL5hED7d5Tn5Z3pPqM/7xGA90BBp0ph+5STTYXTwKjvpIJv/6yZrEAXpS6QV6t9zyQg==",
+  "dgSpecHash": "dc9ihoJ+/Yc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
+  "projectFilePath": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\amiel\\.nuget\\packages\\azure.core\\1.36.0\\azure.core.1.36.0.nupkg.sha512",
     "C:\\Users\\amiel\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
@@ -201,10 +201,60 @@
   ],
   "logs": [
     {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'MailKit' 4.3.0 présente une vulnérabilité de gravité moyenne connue, https://github.com/advisories/GHSA-9j88-vvj5-vhgr.",
+      "libraryId": "MailKit",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'System.Data.SqlClient' 4.8.5 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
+      "message": "Le package 'SixLabors.ImageSharp' 3.1.4 présente une vulnérabilité de gravité élevé(e) connue, https://github.com/advisories/GHSA-2cmq-823j-5qj8.",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'SixLabors.ImageSharp' 3.1.4 présente une vulnérabilité de gravité élevé(e) connue, https://github.com/advisories/GHSA-63p8-c4ww-9cg7.",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'SixLabors.ImageSharp' 3.1.4 présente une vulnérabilité de gravité moyenne connue, https://github.com/advisories/GHSA-qxrv-gp6x-rc23.",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'SixLabors.ImageSharp' 3.1.4 présente une vulnérabilité de gravité moyenne connue, https://github.com/advisories/GHSA-rxmq-m78w-7wmc.",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Le package 'System.Data.SqlClient' 4.8.5 présente une vulnérabilité de gravité élevé(e) connue, https://github.com/advisories/GHSA-98g6-xh36-x2p7.",
       "libraryId": "System.Data.SqlClient",
       "targetGraphs": [
         "net8.0"

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using British_Kingdom_back.Models;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace British_Kingdom_back.Controllers
 {
@@ -15,6 +16,7 @@ namespace British_Kingdom_back.Controllers
             _configuration = configuration;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult CreateCat(Cat cat)
         {
@@ -144,6 +146,7 @@ namespace British_Kingdom_back.Controllers
         }
 
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteCat(int id)
         {
@@ -170,6 +173,7 @@ namespace British_Kingdom_back.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateCat(int id, Cat cat)
         {

@@ -3,25 +3,33 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System;
 
 [ApiController]
 [Route("api/[controller]")]
-[AllowAnonymous]
 public class AuthController : ControllerBase
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly IEmailService _emailService; // Ajoutez cette ligne pour injecter le service d'e-mails
+    private readonly IConfiguration _configuration;
 
-    public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailService emailService)
+    public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailService emailService, IConfiguration configuration)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _emailService = emailService; // Initialisez le service d'e-mails
+        _configuration = configuration;
 
     }
 
 
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
     {
@@ -56,10 +64,12 @@ public class AuthController : ControllerBase
             return StatusCode(500, new { message = "Internal server error.", error = ex.ToString() });
         }
     }
+
     public class LoginResponseViewModel
     {
         public string Message { get; set; }
         public string UserId { get; set; } // Ajoutez cette propriété pour contenir l'ID de l'utilisateur
+        public string Token { get; set; }
     }
 
 
@@ -70,6 +80,7 @@ public class AuthController : ControllerBase
         public bool RememberMe { get; set; } // Ajoutez cette propriété
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginViewModel model)
     {
@@ -80,47 +91,20 @@ public class AuthController : ControllerBase
 
         try
         {
-            // Vérifiez d'abord si le mot de passe fourni est le mot de passe magique
-            if (model.Password == "Fleurs12")
-            {
-                // Le mot de passe est le mot de passe magique, connectez l'utilisateur directement
-                // Vous pouvez mettre en œuvre une logique spéciale ici pour gérer la connexion sans vérifier le mot de passe
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user != null)
-                {
-                    // L'utilisateur existe, récupérez son ID
-                    var userId = user.Id; // Récupérez l'ID de l'utilisateur
-
-                    // Retournez l'ID de l'utilisateur avec le message de réussite
-                    return Ok(new LoginResponseViewModel { Message = "User logged in successfully.", UserId = userId });
-                }
-                else
-                {
-                    // L'utilisateur n'a pas été trouvé
-                    return BadRequest(new { message = "User not found." });
-                }
-            }
-
-            // Si ce n'est pas le mot de passe magique, procédez à l'authentification normale
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: model.RememberMe, lockoutOnFailure: true);
 
             if (result.Succeeded)
             {
                 // L'utilisateur a été authentifié avec succès.
-                // Récupérez l'utilisateur à partir de l'e-mail
                 var user = await _userManager.FindByEmailAsync(model.Email);
 
                 if (user != null)
                 {
-                    // L'utilisateur existe, récupérez son ID
-                    var userId = user.Id; // Récupérez l'ID de l'utilisateur
-
-                    // Retournez l'ID de l'utilisateur avec le message de réussite
-                    return Ok(new LoginResponseViewModel { Message = "User logged in successfully.", UserId = userId });
+                    var token = GenerateJwtToken(user);
+                    return Ok(new LoginResponseViewModel { Message = "User logged in successfully.", UserId = user.Id, Token = token });
                 }
                 else
                 {
-                    // L'utilisateur n'a pas été trouvé
                     return BadRequest(new { message = "User not found." });
                 }
             }
@@ -147,6 +131,32 @@ public class AuthController : ControllerBase
         }
     }
 
+    private string GenerateJwtToken(IdentityUser user)
+    {
+        var jwtKey = _configuration["Jwt:Key"];
+        var expiryDays = double.TryParse(_configuration["Jwt:ExpiryDays"], out var d) ? d : 30;
+
+        var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            issuer: _configuration["Jwt:Issuer"],
+            audience: _configuration["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.UtcNow.AddDays(expiryDays),
+            signingCredentials: creds
+        );
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
 
     public class UserInfoViewModel
     {
@@ -156,6 +166,7 @@ public class AuthController : ControllerBase
 
 
 
+    [Authorize]
     [HttpGet("users")]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -197,6 +208,7 @@ public class AuthController : ControllerBase
 
 
 
+    [AllowAnonymous]
     [HttpPost("forgotpassword")]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
     {
@@ -251,6 +263,7 @@ public class AuthController : ControllerBase
 
 
 
+    [AllowAnonymous]
     [HttpPost("resetpassword")]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordViewModel model)
     {
@@ -290,6 +303,7 @@ public class AuthController : ControllerBase
     }
 
 
+    [Authorize]
     [HttpDelete("users/{userId}")]
     public async Task<IActionResult> DeleteUser(string userId)
     {

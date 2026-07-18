@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using British_Kingdom_back.Models; // Assurez-vous d'importer correctement votre modèle
 using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace British_Kingdom_back.Controllers
 {
@@ -26,6 +27,7 @@ namespace British_Kingdom_back.Controllers
         }
 
 
+        [Authorize]
         [HttpPost]
         public IActionResult CreateBannerSection(BannerSection bannerSection)
         {
@@ -303,6 +305,7 @@ namespace British_Kingdom_back.Controllers
         }
 
 
+        [Authorize]
         [HttpPut]
         public IActionResult UpdateBannerSection([FromQuery] int profilId, [FromBody] BannerSection updatedBannerSection)
         {
@@ -466,6 +469,7 @@ namespace British_Kingdom_back.Controllers
 
 
 
+        [Authorize]
         [HttpDelete("deleteMissingImages")]
         public async Task<IActionResult> DeleteImages([FromQuery] List<string> imagePaths, [FromQuery] string directory)
         {

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pZoHgt2oC2sa3BDZT0RrvWNfsabEjwDpmL9GTLF8s2c=",
+  "Hash": "s5gkDV2Wgc8WoexiStvHU60mH+D8iZJQ7Adzvhk2PkQ=",
   "Source": "British-Kingdom-back",
   "BasePath": "_content/British-Kingdom-back",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "British-Kingdom-back\\wwwroot",
       "Source": "British-Kingdom-back",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "Pattern": "**"
     }
@@ -1157,10 +1157,10 @@
       "OriginalItemSpec": "C:\\Users\\amiel\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\8.0.0\\staticwebassets\\V5\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\88920646-91a3-4b4e-af63-2a778068e4f2.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\88920646-91a3-4b4e-af63-2a778068e4f2.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Banner/88920646-91a3-4b4e-af63-2a778068e4f2.jpg",
       "AssetKind": "All",
@@ -1176,10 +1176,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Banner\\88920646-91a3-4b4e-af63-2a778068e4f2.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\d01f5c9d-1127-4098-a2e1-ea04e827fbe5.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\d01f5c9d-1127-4098-a2e1-ea04e827fbe5.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Banner/d01f5c9d-1127-4098-a2e1-ea04e827fbe5.jpg",
       "AssetKind": "All",
@@ -1195,10 +1195,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Banner\\d01f5c9d-1127-4098-a2e1-ea04e827fbe5.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\d3739842-00cc-4c46-9c85-cbd908ccd0a0.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\d3739842-00cc-4c46-9c85-cbd908ccd0a0.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Banner/d3739842-00cc-4c46-9c85-cbd908ccd0a0.jpg",
       "AssetKind": "All",
@@ -1214,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Banner\\d3739842-00cc-4c46-9c85-cbd908ccd0a0.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\fripouilleBanner.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\fripouilleBanner.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Banner/fripouilleBanner.jpg",
       "AssetKind": "All",
@@ -1233,10 +1233,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Banner\\fripouilleBanner.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\prosperBanner.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\prosperBanner.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Banner/prosperBanner.jpg",
       "AssetKind": "All",
@@ -1252,10 +1252,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Banner\\prosperBanner.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\test.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Banner\\test.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Banner/test.jpg",
       "AssetKind": "All",
@@ -1271,10 +1271,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Banner\\test.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\4fe264d8-871b-4cb4-a825-90c2e4a98d0f.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\4fe264d8-871b-4cb4-a825-90c2e4a98d0f.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsImages/4fe264d8-871b-4cb4-a825-90c2e4a98d0f.jpg",
       "AssetKind": "All",
@@ -1290,10 +1290,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsImages\\4fe264d8-871b-4cb4-a825-90c2e4a98d0f.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\969632c8-becb-4ff3-99c1-acc6b599ff49.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\969632c8-becb-4ff3-99c1-acc6b599ff49.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsImages/969632c8-becb-4ff3-99c1-acc6b599ff49.jpg",
       "AssetKind": "All",
@@ -1309,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsImages\\969632c8-becb-4ff3-99c1-acc6b599ff49.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\96d382a8-4576-44ee-8ac7-cc6b08761f3a.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\96d382a8-4576-44ee-8ac7-cc6b08761f3a.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsImages/96d382a8-4576-44ee-8ac7-cc6b08761f3a.jpg",
       "AssetKind": "All",
@@ -1328,10 +1328,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsImages\\96d382a8-4576-44ee-8ac7-cc6b08761f3a.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\cbd125cf-955d-47de-9db4-9d0e9b9f5862.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsImages\\cbd125cf-955d-47de-9db4-9d0e9b9f5862.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsImages/cbd125cf-955d-47de-9db4-9d0e9b9f5862.jpg",
       "AssetKind": "All",
@@ -1347,10 +1347,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsImages\\cbd125cf-955d-47de-9db4-9d0e9b9f5862.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\03a2b0ea-ab3a-48b9-88de-cf021270a5e5.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\03a2b0ea-ab3a-48b9-88de-cf021270a5e5.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsParents/03a2b0ea-ab3a-48b9-88de-cf021270a5e5.jpg",
       "AssetKind": "All",
@@ -1366,10 +1366,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsParents\\03a2b0ea-ab3a-48b9-88de-cf021270a5e5.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\955dd0f3-92d2-4682-8d72-8d220e86a5f1.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\955dd0f3-92d2-4682-8d72-8d220e86a5f1.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsParents/955dd0f3-92d2-4682-8d72-8d220e86a5f1.jpg",
       "AssetKind": "All",
@@ -1385,10 +1385,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsParents\\955dd0f3-92d2-4682-8d72-8d220e86a5f1.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\mere.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\mere.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsParents/mere.jpg",
       "AssetKind": "All",
@@ -1404,10 +1404,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsParents\\mere.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\pere.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsParents\\pere.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsParents/pere.jpg",
       "AssetKind": "All",
@@ -1423,10 +1423,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsParents\\pere.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\5610945e-011b-4cad-b58a-1dca3f9700c3.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\5610945e-011b-4cad-b58a-1dca3f9700c3.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsProfil/5610945e-011b-4cad-b58a-1dca3f9700c3.jpg",
       "AssetKind": "All",
@@ -1442,10 +1442,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsProfil\\5610945e-011b-4cad-b58a-1dca3f9700c3.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\61a15bf1-120f-4130-97f9-2d251f8da6de.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\61a15bf1-120f-4130-97f9-2d251f8da6de.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsProfil/61a15bf1-120f-4130-97f9-2d251f8da6de.jpg",
       "AssetKind": "All",
@@ -1461,10 +1461,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsProfil\\61a15bf1-120f-4130-97f9-2d251f8da6de.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\6a75ceff-e980-46cc-a128-e5a48cfc81f1.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\6a75ceff-e980-46cc-a128-e5a48cfc81f1.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsProfil/6a75ceff-e980-46cc-a128-e5a48cfc81f1.jpg",
       "AssetKind": "All",
@@ -1480,10 +1480,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsProfil\\6a75ceff-e980-46cc-a128-e5a48cfc81f1.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\a1c390c0-cb13-4c90-896a-6c303da02deb.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\CatsProfil\\a1c390c0-cb13-4c90-896a-6c303da02deb.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/CatsProfil/a1c390c0-cb13-4c90-896a-6c303da02deb.jpg",
       "AssetKind": "All",
@@ -1499,10 +1499,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\CatsProfil\\a1c390c0-cb13-4c90-896a-6c303da02deb.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Chatons\\8805b2ed-2cee-4525-8f95-4b45f76b7cc5.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Chatons\\8805b2ed-2cee-4525-8f95-4b45f76b7cc5.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Chatons/8805b2ed-2cee-4525-8f95-4b45f76b7cc5.jpg",
       "AssetKind": "All",
@@ -1518,10 +1518,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Chatons\\8805b2ed-2cee-4525-8f95-4b45f76b7cc5.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\1f1f445f-b7a9-49ef-90d4-94f436b0c549.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\1f1f445f-b7a9-49ef-90d4-94f436b0c549.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/1f1f445f-b7a9-49ef-90d4-94f436b0c549.jpg",
       "AssetKind": "All",
@@ -1537,10 +1537,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\1f1f445f-b7a9-49ef-90d4-94f436b0c549.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\8350e168-2de7-481f-9ef5-fc979dc08ae9.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\8350e168-2de7-481f-9ef5-fc979dc08ae9.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/8350e168-2de7-481f-9ef5-fc979dc08ae9.jpg",
       "AssetKind": "All",
@@ -1556,10 +1556,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\8350e168-2de7-481f-9ef5-fc979dc08ae9.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\877f5a2e-9ad9-4f37-862b-aa2220bf9eaa.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\877f5a2e-9ad9-4f37-862b-aa2220bf9eaa.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/877f5a2e-9ad9-4f37-862b-aa2220bf9eaa.jpg",
       "AssetKind": "All",
@@ -1575,10 +1575,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\877f5a2e-9ad9-4f37-862b-aa2220bf9eaa.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\92d571b9-9f21-4fb5-8a24-c133cfb3e5d1.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\92d571b9-9f21-4fb5-8a24-c133cfb3e5d1.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/92d571b9-9f21-4fb5-8a24-c133cfb3e5d1.jpg",
       "AssetKind": "All",
@@ -1594,10 +1594,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\92d571b9-9f21-4fb5-8a24-c133cfb3e5d1.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\a06fda09-ea55-43ad-b931-96375c45f74d.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\a06fda09-ea55-43ad-b931-96375c45f74d.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/a06fda09-ea55-43ad-b931-96375c45f74d.jpg",
       "AssetKind": "All",
@@ -1613,10 +1613,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\a06fda09-ea55-43ad-b931-96375c45f74d.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\addf8a71-470a-4745-b9b0-8fe0f689f6f5.JPG",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\addf8a71-470a-4745-b9b0-8fe0f689f6f5.JPG",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/addf8a71-470a-4745-b9b0-8fe0f689f6f5.JPG",
       "AssetKind": "All",
@@ -1632,10 +1632,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\addf8a71-470a-4745-b9b0-8fe0f689f6f5.JPG"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\bc2d7a0d-9b0f-4743-b142-1dd9eb20e871.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\bc2d7a0d-9b0f-4743-b142-1dd9eb20e871.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/bc2d7a0d-9b0f-4743-b142-1dd9eb20e871.jpg",
       "AssetKind": "All",
@@ -1651,10 +1651,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\bc2d7a0d-9b0f-4743-b142-1dd9eb20e871.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\f717b3e6-5038-4566-8322-a057688f6d8b.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\chatonsProfil\\f717b3e6-5038-4566-8322-a057688f6d8b.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/chatonsProfil/f717b3e6-5038-4566-8322-a057688f6d8b.jpg",
       "AssetKind": "All",
@@ -1670,10 +1670,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\chatonsProfil\\f717b3e6-5038-4566-8322-a057688f6d8b.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Favicon\\8b9e196a-0f1e-4472-ad49-e16f4619a76f.ico",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Favicon\\8b9e196a-0f1e-4472-ad49-e16f4619a76f.ico",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Favicon/8b9e196a-0f1e-4472-ad49-e16f4619a76f.ico",
       "AssetKind": "All",
@@ -1689,10 +1689,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Favicon\\8b9e196a-0f1e-4472-ad49-e16f4619a76f.ico"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Favicon\\favicon.ico",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Favicon\\favicon.ico",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Favicon/favicon.ico",
       "AssetKind": "All",
@@ -1708,10 +1708,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Favicon\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\imgDivers\\coeur-transparent.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\imgDivers\\coeur-transparent.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/imgDivers/coeur-transparent.png",
       "AssetKind": "All",
@@ -1727,10 +1727,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\imgDivers\\coeur-transparent.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\imgDivers\\coeur.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\imgDivers\\coeur.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/imgDivers/coeur.jpg",
       "AssetKind": "All",
@@ -1746,10 +1746,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\imgDivers\\coeur.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Pedigree\\4138c6b5-b078-4acd-ba58-436740d65ef1.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Pedigree\\4138c6b5-b078-4acd-ba58-436740d65ef1.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Pedigree/4138c6b5-b078-4acd-ba58-436740d65ef1.jpg",
       "AssetKind": "All",
@@ -1765,10 +1765,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Pedigree\\4138c6b5-b078-4acd-ba58-436740d65ef1.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Pedigree\\a63b7f23-2fb6-4b55-9335-3294afc67182.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Pedigree\\a63b7f23-2fb6-4b55-9335-3294afc67182.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Pedigree/a63b7f23-2fb6-4b55-9335-3294afc67182.png",
       "AssetKind": "All",
@@ -1784,10 +1784,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Pedigree\\a63b7f23-2fb6-4b55-9335-3294afc67182.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\35f50a22-e41c-424a-9541-660dda935166.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\35f50a22-e41c-424a-9541-660dda935166.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Profil/35f50a22-e41c-424a-9541-660dda935166.jpg",
       "AssetKind": "All",
@@ -1803,10 +1803,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Profil\\35f50a22-e41c-424a-9541-660dda935166.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\78e683ec-d83b-4758-b57a-5555c904f6c7.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\78e683ec-d83b-4758-b57a-5555c904f6c7.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Profil/78e683ec-d83b-4758-b57a-5555c904f6c7.jpg",
       "AssetKind": "All",
@@ -1822,10 +1822,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Profil\\78e683ec-d83b-4758-b57a-5555c904f6c7.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\chatonProfil.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\chatonProfil.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Profil/chatonProfil.jpg",
       "AssetKind": "All",
@@ -1841,10 +1841,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Profil\\chatonProfil.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\EdenProfil.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\EdenProfil.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Profil/EdenProfil.jpg",
       "AssetKind": "All",
@@ -1860,10 +1860,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Profil\\EdenProfil.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\f176163b-ca45-4e03-954c-bc277e928843.jpg",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Profil\\f176163b-ca45-4e03-954c-bc277e928843.jpg",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Profil/f176163b-ca45-4e03-954c-bc277e928843.jpg",
       "AssetKind": "All",
@@ -1879,10 +1879,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Profil\\f176163b-ca45-4e03-954c-bc277e928843.jpg"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\020f5af6-a8df-447c-bb55-e84c4fba6dad.PNG",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\020f5af6-a8df-447c-bb55-e84c4fba6dad.PNG",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/020f5af6-a8df-447c-bb55-e84c4fba6dad.PNG",
       "AssetKind": "All",
@@ -1898,10 +1898,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\020f5af6-a8df-447c-bb55-e84c4fba6dad.PNG"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\14389f1a-ebcc-4a9b-9fd4-dcca0c331ef8.PNG",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\14389f1a-ebcc-4a9b-9fd4-dcca0c331ef8.PNG",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/14389f1a-ebcc-4a9b-9fd4-dcca0c331ef8.PNG",
       "AssetKind": "All",
@@ -1917,10 +1917,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\14389f1a-ebcc-4a9b-9fd4-dcca0c331ef8.PNG"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\1866c638-b286-407a-98c0-b16d0a1c9528.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\1866c638-b286-407a-98c0-b16d0a1c9528.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/1866c638-b286-407a-98c0-b16d0a1c9528.png",
       "AssetKind": "All",
@@ -1936,10 +1936,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\1866c638-b286-407a-98c0-b16d0a1c9528.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\1932b231-df51-44c3-86ee-9406ed9a6ad3.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\1932b231-df51-44c3-86ee-9406ed9a6ad3.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/1932b231-df51-44c3-86ee-9406ed9a6ad3.png",
       "AssetKind": "All",
@@ -1955,10 +1955,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\1932b231-df51-44c3-86ee-9406ed9a6ad3.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\27dcac19-eff6-4ebd-9298-b8ce7e89b992.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\27dcac19-eff6-4ebd-9298-b8ce7e89b992.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/27dcac19-eff6-4ebd-9298-b8ce7e89b992.png",
       "AssetKind": "All",
@@ -1974,10 +1974,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\27dcac19-eff6-4ebd-9298-b8ce7e89b992.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\659b1def-0da3-421f-809a-fe644006da78.PNG",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\659b1def-0da3-421f-809a-fe644006da78.PNG",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/659b1def-0da3-421f-809a-fe644006da78.PNG",
       "AssetKind": "All",
@@ -1993,10 +1993,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\659b1def-0da3-421f-809a-fe644006da78.PNG"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\76cfbbd3-4177-4d0d-8170-aae30b856454.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\76cfbbd3-4177-4d0d-8170-aae30b856454.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/76cfbbd3-4177-4d0d-8170-aae30b856454.png",
       "AssetKind": "All",
@@ -2012,10 +2012,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\76cfbbd3-4177-4d0d-8170-aae30b856454.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\a3abc5e2-edcd-44f9-b59f-7a0ec4e87f46.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\a3abc5e2-edcd-44f9-b59f-7a0ec4e87f46.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/a3abc5e2-edcd-44f9-b59f-7a0ec4e87f46.png",
       "AssetKind": "All",
@@ -2031,10 +2031,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\a3abc5e2-edcd-44f9-b59f-7a0ec4e87f46.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\b2a53419-fb86-4451-bb20-22046a9e9621.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\b2a53419-fb86-4451-bb20-22046a9e9621.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/b2a53419-fb86-4451-bb20-22046a9e9621.png",
       "AssetKind": "All",
@@ -2050,10 +2050,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\b2a53419-fb86-4451-bb20-22046a9e9621.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\b9cd959f-3474-4322-9d29-c5a03ead00dc.PNG",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\b9cd959f-3474-4322-9d29-c5a03ead00dc.PNG",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/b9cd959f-3474-4322-9d29-c5a03ead00dc.PNG",
       "AssetKind": "All",
@@ -2069,10 +2069,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\b9cd959f-3474-4322-9d29-c5a03ead00dc.PNG"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\d91ebd2b-36db-4a92-99d2-6a286efb4af4.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\d91ebd2b-36db-4a92-99d2-6a286efb4af4.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/d91ebd2b-36db-4a92-99d2-6a286efb4af4.png",
       "AssetKind": "All",
@@ -2088,10 +2088,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\d91ebd2b-36db-4a92-99d2-6a286efb4af4.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\e2e3a913-12db-48c3-a330-7d8bff2a98ae.PNG",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\e2e3a913-12db-48c3-a330-7d8bff2a98ae.PNG",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/e2e3a913-12db-48c3-a330-7d8bff2a98ae.PNG",
       "AssetKind": "All",
@@ -2107,10 +2107,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\e2e3a913-12db-48c3-a330-7d8bff2a98ae.PNG"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\ef434e5b-8f87-42c4-b4bf-bd516b22bf80.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\ef434e5b-8f87-42c4-b4bf-bd516b22bf80.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/ef434e5b-8f87-42c4-b4bf-bd516b22bf80.png",
       "AssetKind": "All",
@@ -2126,10 +2126,10 @@
       "OriginalItemSpec": "wwwroot\\assets\\Tickets\\ef434e5b-8f87-42c4-b4bf-bd516b22bf80.png"
     },
     {
-      "Identity": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\f5046828-52bb-4de0-a908-33bdb03b275d.png",
+      "Identity": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\assets\\Tickets\\f5046828-52bb-4de0-a908-33bdb03b275d.png",
       "SourceId": "British-Kingdom-back",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\amiel\\Desktop\\bureau\\Dev\\British-Kingdom-back\\wwwroot\\",
       "BasePath": "_content/British-Kingdom-back",
       "RelativePath": "assets/Tickets/f5046828-52bb-4de0-a908-33bdb03b275d.png",
       "AssetKind": "All",

@@ -23,8 +23,6 @@ namespace VotreProjet.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTickets([FromQuery] int? uniqueProfilId)
         {
-
-            Console.WriteLine("zdzdzdzd", uniqueProfilId);
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var tickets = new List<Ticket>();
 
