@@ -1,5 +1,7 @@
 using System;
 using System.Data.SqlClient;
+using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using British_Kingdom_back.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -13,53 +15,109 @@ namespace British_Kingdom_back.Controllers
     public class StatistiqueController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         public StatistiqueController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
+        private string GetClientIp()
+        {
+            if (Request.Headers.TryGetValue("CF-Connecting-IP", out var cfIp) && !string.IsNullOrWhiteSpace(cfIp))
+                return cfIp.ToString();
+
+            if (Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedFor) && !string.IsNullOrWhiteSpace(forwardedFor))
+                return forwardedFor.ToString().Split(',')[0].Trim();
+
+            return HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        }
+
+        private async Task<string> ResolveLocationAsync(string ip)
+        {
+            try
+            {
+                var response = await _httpClient.GetStringAsync($"http://ip-api.com/json/{ip}?fields=status,city,country");
+                using var doc = JsonDocument.Parse(response);
+                var root = doc.RootElement;
+
+                if (root.TryGetProperty("status", out var status) && status.GetString() == "success")
+                {
+                    var city = root.TryGetProperty("city", out var c) ? c.GetString() : null;
+                    var country = root.TryGetProperty("country", out var co) ? co.GetString() : null;
+
+                    if (!string.IsNullOrEmpty(city) && !string.IsNullOrEmpty(country))
+                        return $"{city}, {country}";
+                    if (!string.IsNullOrEmpty(country))
+                        return country;
+                }
+            }
+            catch
+            {
+                // Géolocalisation indisponible, on continue sans bloquer l'enregistrement de la visite
+            }
+
+            return "Inconnu";
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddVisit(Statistique statistique)
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            var ip = GetClientIp();
+            var today = DateTime.Today;
 
             using (var connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
 
-                // Vérifier si une entrée existe pour cette ProfilId et la date actuelle
-                var query = "SELECT COUNT(*) FROM Statistique WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite";
-                using (var command = new SqlCommand(query, connection))
+                // Vérifier si cette IP a déjà visité aujourd'hui, pour ne pas fausser les compteurs
+                bool isNewVisitorToday;
+                var checkIpQuery = "SELECT COUNT(*) FROM VisitLog WHERE ProfilId = @ProfilId AND VisitorIp = @VisitorIp AND CAST(VisitedAt AS DATE) = CAST(GETUTCDATE() AS DATE)";
+                using (var checkIpCommand = new SqlCommand(checkIpQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@ProfilId", statistique.ProfilId);
-                    command.Parameters.AddWithValue("@DateVisite", DateTime.Today);
-
-                    int existingVisits = (int)command.ExecuteScalar();
-
-                    if (existingVisits == 0)
-                    {
-                        // Créer une nouvelle entrée dans la table Statistique
-                        query = "INSERT INTO Statistique (ProfilId, NbrVisitesTotal, NbrVisitesJour, DateVisite) VALUES (@ProfilId, @NbrVisitesTotal, @NbrVisitesJour, @DateVisite)";
-                        command.CommandText = query;
-                        command.Parameters.AddWithValue("@NbrVisitesTotal", 1);
-                        command.Parameters.AddWithValue("@NbrVisitesJour", 1);
-                    }
-                    else
-                    {
-                        // Mettre à jour les valeurs existantes
-                        query = "UPDATE Statistique SET NbrVisitesTotal = NbrVisitesTotal + 1, NbrVisitesJour = NbrVisitesJour + 1 WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite";
-                        command.CommandText = query;
-                    }
-
-                    await command.ExecuteNonQueryAsync();
+                    checkIpCommand.Parameters.AddWithValue("@ProfilId", statistique.ProfilId);
+                    checkIpCommand.Parameters.AddWithValue("@VisitorIp", ip);
+                    var existingForIp = (int)await checkIpCommand.ExecuteScalarAsync();
+                    isNewVisitorToday = existingForIp == 0;
                 }
 
-                var logQuery = "INSERT INTO VisitLog (ProfilId, VisitedAt) VALUES (@ProfilId, @VisitedAt)";
+                if (isNewVisitorToday)
+                {
+                    var query = "SELECT COUNT(*) FROM Statistique WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite";
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ProfilId", statistique.ProfilId);
+                        command.Parameters.AddWithValue("@DateVisite", today);
+
+                        int existingVisits = (int)await command.ExecuteScalarAsync();
+
+                        if (existingVisits == 0)
+                        {
+                            query = "INSERT INTO Statistique (ProfilId, NbrVisitesTotal, NbrVisitesJour, DateVisite) VALUES (@ProfilId, @NbrVisitesTotal, @NbrVisitesJour, @DateVisite)";
+                            command.CommandText = query;
+                            command.Parameters.AddWithValue("@NbrVisitesTotal", 1);
+                            command.Parameters.AddWithValue("@NbrVisitesJour", 1);
+                        }
+                        else
+                        {
+                            query = "UPDATE Statistique SET NbrVisitesTotal = NbrVisitesTotal + 1, NbrVisitesJour = NbrVisitesJour + 1 WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite";
+                            command.CommandText = query;
+                        }
+
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+
+                var location = await ResolveLocationAsync(ip);
+
+                var logQuery = "INSERT INTO VisitLog (ProfilId, VisitedAt, VisitorIp, Location) VALUES (@ProfilId, @VisitedAt, @VisitorIp, @Location)";
                 using (var logCommand = new SqlCommand(logQuery, connection))
                 {
                     logCommand.Parameters.AddWithValue("@ProfilId", statistique.ProfilId);
                     logCommand.Parameters.AddWithValue("@VisitedAt", DateTime.UtcNow);
+                    logCommand.Parameters.AddWithValue("@VisitorIp", ip);
+                    logCommand.Parameters.AddWithValue("@Location", location);
                     await logCommand.ExecuteNonQueryAsync();
                 }
             }
@@ -77,18 +135,22 @@ namespace British_Kingdom_back.Controllers
           {
               await connection.OpenAsync();
 
-              var query = "SELECT TOP (@Limit) VisitedAt FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
+              var query = "SELECT TOP (@Limit) VisitedAt, Location FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
               using (var command = new SqlCommand(query, connection))
               {
                   command.Parameters.AddWithValue("@ProfilId", profilId);
                   command.Parameters.AddWithValue("@Limit", limit);
 
-                  var visits = new System.Collections.Generic.List<DateTime>();
+                  var visits = new System.Collections.Generic.List<object>();
                   using (var reader = await command.ExecuteReaderAsync())
                   {
                       while (await reader.ReadAsync())
                       {
-                          visits.Add(reader.GetDateTime(reader.GetOrdinal("VisitedAt")));
+                          visits.Add(new
+                          {
+                              VisitedAt = reader.GetDateTime(reader.GetOrdinal("VisitedAt")),
+                              Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location"))
+                          });
                       }
                   }
 
@@ -112,14 +174,14 @@ public async Task<IActionResult> GetStats(int profilId)
         await connection.OpenAsync();
 
         // Récupérer les statistiques pour la ProfilId spécifiée
-        var query = @"SELECT 
-                        SUM(NbrVisitesTotal) AS NbrVisitesTotal, 
-                        (SELECT TOP 1 NbrVisitesJour 
-                         FROM Statistique 
-                         WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite) AS NbrVisitesJour 
-                      FROM Statistique 
+        var query = @"SELECT
+                        SUM(NbrVisitesTotal) AS NbrVisitesTotal,
+                        (SELECT TOP 1 NbrVisitesJour
+                         FROM Statistique
+                         WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite) AS NbrVisitesJour
+                      FROM Statistique
                       WHERE ProfilId = @ProfilId";
-        
+
         using (var command = new SqlCommand(query, connection))
         {
             command.Parameters.AddWithValue("@ProfilId", profilId);
