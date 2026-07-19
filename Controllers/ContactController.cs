@@ -26,6 +26,11 @@ namespace British_Kingdom_back.Controllers
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             int newId;
 
+            // L'heure envoyée par le client n'est pas fiable (et le DateTimeConverter global
+            // tronque de toute façon les DateTime à la date seule) : on utilise l'heure serveur.
+            var now = DateTime.UtcNow;
+            var nowParis = TimeZoneInfo.ConvertTimeFromUtc(now, TimeZoneInfo.FindSystemTimeZoneById("Europe/Paris"));
+
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -37,9 +42,9 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@Name", contact.Name);
                     command.Parameters.AddWithValue("@Message", contact.Message);
                     command.Parameters.AddWithValue("@Email", contact.Email);
-                    command.Parameters.AddWithValue("@Hour", contact.Hour);
+                    command.Parameters.AddWithValue("@Hour", nowParis.ToString("HH:mm"));
                     command.Parameters.AddWithValue("@Vue", contact.Vue);
-                    command.Parameters.AddWithValue("@DateofCrea", contact.DateofCrea);
+                    command.Parameters.AddWithValue("@DateofCrea", now);
 
 
 
@@ -71,7 +76,8 @@ namespace British_Kingdom_back.Controllers
                     {
                         if (await reader.ReadAsync())
                         {
-                            var contact = new Contact
+                            var dateOfCreaUtc = DateTime.SpecifyKind(reader.GetDateTime(reader.GetOrdinal("DateofCrea")), DateTimeKind.Utc);
+                            var contact = new
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
@@ -82,8 +88,8 @@ namespace British_Kingdom_back.Controllers
                                 Hour = reader.GetString(reader.GetOrdinal("Hour")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Vue = reader.GetBoolean(reader.GetOrdinal("Vue")),
-                                DateofCrea = reader.GetDateTime(reader.GetOrdinal("DateofCrea"))
-
+                                // Sérialisé en string à la main : le DateTimeConverter global tronque les DateTime à "yyyy-MM-dd"
+                                DateofCrea = dateOfCreaUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
                             };
 
                             return Ok(contact);
@@ -102,8 +108,8 @@ namespace British_Kingdom_back.Controllers
         public async Task<IActionResult> GetAllContacts(int profilId)
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
-            var contacts = new List<Contact>();
-            string query = "SELECT * FROM Contact WHERE ProfilId = @ProfilId ORDER BY CONVERT(datetime, DateofCrea + ' ' + Hour, 120) DESC";
+            var contacts = new List<object>();
+            string query = "SELECT * FROM Contact WHERE ProfilId = @ProfilId ORDER BY DateofCrea DESC";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -117,7 +123,8 @@ namespace British_Kingdom_back.Controllers
                     {
                         while (reader.Read())
                         {
-                            var contact = new Contact
+                            var dateOfCreaUtc = DateTime.SpecifyKind(reader.GetDateTime(reader.GetOrdinal("DateofCrea")), DateTimeKind.Utc);
+                            var contact = new
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
@@ -128,7 +135,8 @@ namespace British_Kingdom_back.Controllers
                                 Hour = reader.GetString(reader.GetOrdinal("Hour")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Vue = reader.GetBoolean(reader.GetOrdinal("Vue")),
-                                DateofCrea = reader.GetDateTime(reader.GetOrdinal("DateofCrea"))
+                                // Sérialisé en string à la main : le DateTimeConverter global tronque les DateTime à "yyyy-MM-dd"
+                                DateofCrea = dateOfCreaUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
                             };
                             contacts.Add(contact);
                         }
@@ -180,7 +188,10 @@ namespace British_Kingdom_back.Controllers
                 if (ContactExists(connection, id))
                 {
                     // Mettez à jour le contact
-                    using (var command = new SqlCommand("UPDATE Contact SET ProfilId = @ProfilId, Num = @Num, Subject = @Subject, Name = @Name, Message = @Message, Email = @Email, Vue = @Vue, DateofCrea = @DateofCrea, Hour = @Hour WHERE Id = @Id", connection))
+                    // DateofCrea/Hour ne sont volontairement pas mis à jour : ce sont des dates de création
+                    // immuables, et contact.DateofCrea (venant du corps de la requête) transite par le
+                    // DateTimeConverter global qui tronque l'heure à minuit.
+                    using (var command = new SqlCommand("UPDATE Contact SET ProfilId = @ProfilId, Num = @Num, Subject = @Subject, Name = @Name, Message = @Message, Email = @Email, Vue = @Vue WHERE Id = @Id", connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
                         command.Parameters.AddWithValue("@ProfilId", contact.ProfilId);
@@ -188,10 +199,8 @@ namespace British_Kingdom_back.Controllers
                         command.Parameters.AddWithValue("@Subject", contact.Subject);
                         command.Parameters.AddWithValue("@Name", contact.Name);
                         command.Parameters.AddWithValue("@Message", contact.Message);
-                        command.Parameters.AddWithValue("@Hour", contact.Hour);
                         command.Parameters.AddWithValue("@Email", contact.Email);
                         command.Parameters.AddWithValue("@Vue", contact.Vue);
-                        command.Parameters.AddWithValue("@DateofCrea", contact.DateofCrea);
 
 
 
