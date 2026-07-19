@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -50,6 +51,7 @@ namespace British_Kingdom_back.Controllers
             return CreatedAtAction(nameof(GetContactById), new { id = newId, profilId = contact.ProfilId }, contact);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetContactById(int id, int profilId)
         {
@@ -95,6 +97,7 @@ namespace British_Kingdom_back.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllContacts(int profilId)
         {
@@ -136,6 +139,7 @@ namespace British_Kingdom_back.Controllers
             return Ok(contacts);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteContact(int id)
         {
@@ -162,6 +166,7 @@ namespace British_Kingdom_back.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateContact(int id, Contact contact)
         {
