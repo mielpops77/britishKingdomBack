@@ -94,7 +94,7 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 sailliesExterieures = reader.GetString(reader.GetOrdinal("sailliesExterieures")),
                                 Pedigree = reader.GetString(reader.GetOrdinal("Pedigree")),
-                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(','),
+                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(',', StringSplitOptions.RemoveEmptyEntries),
                                 Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee"))
                             };
                             cats.Add(cat);
@@ -140,7 +140,7 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 sailliesExterieures = reader.GetString(reader.GetOrdinal("sailliesExterieures")),
                                 Pedigree = reader.GetString(reader.GetOrdinal("Pedigree")),
-                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(','),
+                                Images = reader.GetString(reader.GetOrdinal("Images")).Split(',', StringSplitOptions.RemoveEmptyEntries),
                                 Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee"))
                             };
 

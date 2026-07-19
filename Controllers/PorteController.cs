@@ -24,6 +24,7 @@ namespace British_Kingdom_back.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPorteesByProfilId([FromQuery] int profilId)
         {
+            Response.Headers.CacheControl = "no-store";
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var portees = new List<Portee>();
 
@@ -106,6 +107,7 @@ namespace British_Kingdom_back.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPortee(int id)
         {
+            Response.Headers.CacheControl = "no-store";
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
 
             using (var connection = new SqlConnection(connectionString))
