@@ -19,5 +19,7 @@ namespace British_Kingdom_back.Models
         public string UrlProfilFather { get; set; } = string.Empty;
         public bool Disponible { get; set; }
         public bool Archivee { get; set; }
+        public string ExternalFatherName { get; set; } = string.Empty;
+        public string ExternalFatherPhoto { get; set; } = string.Empty;
     }
 }

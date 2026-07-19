@@ -52,7 +52,9 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 UrlProfilMother = reader.GetString(reader.GetOrdinal("UrlProfilMother")),
                                 Disponible = reader.GetBoolean(reader.GetOrdinal("Disponible")),
-                                Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee"))
+                                Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee")),
+                                ExternalFatherName = reader.GetString(reader.GetOrdinal("ExternalFatherName")),
+                                ExternalFatherPhoto = reader.GetString(reader.GetOrdinal("ExternalFatherPhoto"))
                             };
 
                             // Chargez les chatons en fonction de l'ID de la portée.
@@ -136,7 +138,9 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 UrlProfilMother = reader.GetString(reader.GetOrdinal("UrlProfilMother")),
                                 Disponible = reader.GetBoolean(reader.GetOrdinal("Disponible")),
-                                Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee"))
+                                Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee")),
+                                ExternalFatherName = reader.GetString(reader.GetOrdinal("ExternalFatherName")),
+                                ExternalFatherPhoto = reader.GetString(reader.GetOrdinal("ExternalFatherPhoto"))
                             };
                             portee.Chatons = await LoadChatonsForPorteeAsync(portee.Id, connection);
                             return Ok(portee);
@@ -182,7 +186,9 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
                         UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                         UrlProfilMother = reader.GetString(reader.GetOrdinal("UrlProfilMother")),
                         Disponible = reader.GetBoolean(reader.GetOrdinal("Disponible")),
-                        Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee"))
+                        Archivee = reader.GetBoolean(reader.GetOrdinal("Archivee")),
+                        ExternalFatherName = reader.GetString(reader.GetOrdinal("ExternalFatherName")),
+                        ExternalFatherPhoto = reader.GetString(reader.GetOrdinal("ExternalFatherPhoto"))
                     };
                     portee.Chatons = await LoadChatonsForPorteeAsync(portee.Id, connection);
                     portees.Add(portee);
@@ -205,7 +211,9 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
                 return BadRequest("Portée data is missing.");
             }
 
-            if (portee.IdPapa <= 0 || portee.IdMaman <= 0 || portee.ProfilId <= 0)
+            var isExternalFather = portee.IdPapa <= 0 && !string.IsNullOrWhiteSpace(portee.ExternalFatherName);
+
+            if ((portee.IdPapa <= 0 && !isExternalFather) || portee.IdMaman <= 0 || portee.ProfilId <= 0)
             {
                 return BadRequest("Invalid values for IdPapa, IdMaman, or ProfilId.");
             }
@@ -221,7 +229,7 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
                     try
                     {
                         // 1. Insérer la portée
-                        using (var command = new SqlCommand("INSERT INTO Portee (IdPapa, IdMaman, DateOfBirth, DateOfSell, ProfilId, UrlProfilFather, UrlProfilMother, Name, Disponible, Archivee) VALUES (@IdPapa, @IdMaman, @DateOfBirth, @DateOfSell, @ProfilId, @UrlProfilFather, @UrlProfilMother, @Name, @Disponible, @Archivee); SELECT SCOPE_IDENTITY();", connection, transaction))
+                        using (var command = new SqlCommand("INSERT INTO Portee (IdPapa, IdMaman, DateOfBirth, DateOfSell, ProfilId, UrlProfilFather, UrlProfilMother, Name, Disponible, Archivee, ExternalFatherName, ExternalFatherPhoto) VALUES (@IdPapa, @IdMaman, @DateOfBirth, @DateOfSell, @ProfilId, @UrlProfilFather, @UrlProfilMother, @Name, @Disponible, @Archivee, @ExternalFatherName, @ExternalFatherPhoto); SELECT SCOPE_IDENTITY();", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@IdPapa", portee.IdPapa);
                             command.Parameters.AddWithValue("@IdMaman", portee.IdMaman);
@@ -231,9 +239,11 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
                             command.Parameters.AddWithValue("@name", portee.Name);
                             command.Parameters.AddWithValue("@Disponible", portee.Disponible);
                             command.Parameters.AddWithValue("@Archivee", portee.Archivee);
+                            command.Parameters.AddWithValue("@ExternalFatherName", isExternalFather ? portee.ExternalFatherName : string.Empty);
+                            command.Parameters.AddWithValue("@ExternalFatherPhoto", isExternalFather ? (portee.ExternalFatherPhoto ?? string.Empty) : string.Empty);
 
-                            // Utilisation de GetParentUrl
-                            var fatherUrl = GetParentUrl(connection, transaction, portee.IdPapa);
+                            // Utilisation de GetParentUrl (le père externe utilise sa propre photo, pas une fiche chat)
+                            var fatherUrl = isExternalFather ? (portee.ExternalFatherPhoto ?? string.Empty) : GetParentUrl(connection, transaction, portee.IdPapa);
                             var motherUrl = GetParentUrl(connection, transaction, portee.IdMaman);
 
                             command.Parameters.AddWithValue("@UrlProfilFather", fatherUrl);
@@ -329,7 +339,7 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
                     {
                         // 1. Mettre à jour la portée
                         using (var command = new SqlCommand(
-                            "UPDATE Portee SET IdPapa = @IdPapa, IdMaman = @IdMaman, DateOfSell = @DateOfSell,  DateOfBirth = @DateOfBirth, UrlProfilFather = @UrlProfilFather, UrlProfilMother = @UrlProfilMother, Name = @Name, Disponible = @Disponible, Archivee = @Archivee, ProfilId = @ProfilId WHERE Id = @Id", connection, transaction))
+                            "UPDATE Portee SET IdPapa = @IdPapa, IdMaman = @IdMaman, DateOfSell = @DateOfSell,  DateOfBirth = @DateOfBirth, UrlProfilFather = @UrlProfilFather, UrlProfilMother = @UrlProfilMother, Name = @Name, Disponible = @Disponible, Archivee = @Archivee, ProfilId = @ProfilId, ExternalFatherName = @ExternalFatherName, ExternalFatherPhoto = @ExternalFatherPhoto WHERE Id = @Id", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@Id", id);
                             command.Parameters.AddWithValue("@IdPapa", portee.IdPapa);
@@ -342,6 +352,8 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
                             command.Parameters.AddWithValue("@UrlProfilMother", portee.UrlProfilMother);
                             command.Parameters.AddWithValue("@Disponible", portee.Disponible);
                             command.Parameters.AddWithValue("@Archivee", portee.Archivee);
+                            command.Parameters.AddWithValue("@ExternalFatherName", portee.ExternalFatherName ?? string.Empty);
+                            command.Parameters.AddWithValue("@ExternalFatherPhoto", portee.ExternalFatherPhoto ?? string.Empty);
 
                             int rowsAffected = command.ExecuteNonQuery();
 
