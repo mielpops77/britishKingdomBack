@@ -1,5 +1,6 @@
 using System;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -24,13 +25,54 @@ namespace British_Kingdom_back.Controllers
 
         private string GetClientIp()
         {
+            string raw;
+
             if (Request.Headers.TryGetValue("CF-Connecting-IP", out var cfIp) && !string.IsNullOrWhiteSpace(cfIp))
-                return cfIp.ToString();
+                raw = cfIp.ToString();
+            else if (Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedFor) && !string.IsNullOrWhiteSpace(forwardedFor))
+                raw = forwardedFor.ToString().Split(',')[0].Trim();
+            else
+                raw = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
-            if (Request.Headers.TryGetValue("X-Forwarded-For", out var forwardedFor) && !string.IsNullOrWhiteSpace(forwardedFor))
-                return forwardedFor.ToString().Split(',')[0].Trim();
+            // X-Forwarded-For peut contenir "ip:port" pour de l'IPv4 ; on retire le port
+            var colonIndex = raw.IndexOf(':');
+            if (colonIndex > 0 && raw.Count(c => c == ':') == 1)
+                raw = raw.Substring(0, colonIndex);
 
-            return HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            return raw;
+        }
+
+        private bool IsLikelyBot(string userAgent)
+        {
+            if (string.IsNullOrWhiteSpace(userAgent)) return true;
+            var lower = userAgent.ToLowerInvariant();
+            string[] botSignatures = { "bot", "crawl", "spider", "slurp", "curl", "wget", "python", "scrapy", "headless", "monitor", "uptime", "facebookexternalhit" };
+            return botSignatures.Any(sig => lower.Contains(sig));
+        }
+
+        private string DescribeUserAgent(string userAgent)
+        {
+            if (string.IsNullOrWhiteSpace(userAgent)) return "Inconnu";
+            var lower = userAgent.ToLowerInvariant();
+
+            if (lower.Contains("googlebot")) return "Googlebot";
+            if (lower.Contains("bingbot")) return "Bingbot";
+            if (lower.Contains("ahrefsbot")) return "AhrefsBot";
+            if (lower.Contains("semrushbot")) return "SemrushBot";
+            if (IsLikelyBot(userAgent)) return "Robot";
+
+            var device = lower.Contains("iphone") ? "iPhone"
+                : lower.Contains("ipad") ? "iPad"
+                : lower.Contains("android") ? "Android"
+                : "Ordinateur";
+
+            var browser = lower.Contains("edg/") ? "Edge"
+                : lower.Contains("chrome") ? "Chrome"
+                : lower.Contains("firefox") ? "Firefox"
+                : lower.Contains("safari") ? "Safari"
+                : "navigateur inconnu";
+
+            return $"{device} ({browser})";
         }
 
         private async Task<string> ResolveLocationAsync(string ip)
@@ -65,6 +107,8 @@ namespace British_Kingdom_back.Controllers
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var ip = GetClientIp();
+            var userAgent = Request.Headers.TryGetValue("User-Agent", out var ua) ? ua.ToString() : string.Empty;
+            var isBot = IsLikelyBot(userAgent);
             var today = DateTime.Today;
 
             using (var connection = new SqlConnection(connectionString))
@@ -82,7 +126,7 @@ namespace British_Kingdom_back.Controllers
                     isNewVisitorToday = existingForIp == 0;
                 }
 
-                if (isNewVisitorToday)
+                if (isNewVisitorToday && !isBot)
                 {
                     var query = "SELECT COUNT(*) FROM Statistique WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite";
                     using (var command = new SqlCommand(query, connection))
@@ -111,13 +155,15 @@ namespace British_Kingdom_back.Controllers
 
                 var location = await ResolveLocationAsync(ip);
 
-                var logQuery = "INSERT INTO VisitLog (ProfilId, VisitedAt, VisitorIp, Location) VALUES (@ProfilId, @VisitedAt, @VisitorIp, @Location)";
+                var logQuery = "INSERT INTO VisitLog (ProfilId, VisitedAt, VisitorIp, Location, UserAgent, IsBot) VALUES (@ProfilId, @VisitedAt, @VisitorIp, @Location, @UserAgent, @IsBot)";
                 using (var logCommand = new SqlCommand(logQuery, connection))
                 {
                     logCommand.Parameters.AddWithValue("@ProfilId", statistique.ProfilId);
                     logCommand.Parameters.AddWithValue("@VisitedAt", DateTime.UtcNow);
                     logCommand.Parameters.AddWithValue("@VisitorIp", ip);
                     logCommand.Parameters.AddWithValue("@Location", location);
+                    logCommand.Parameters.AddWithValue("@UserAgent", (object?)userAgent.Substring(0, Math.Min(userAgent.Length, 500)) ?? DBNull.Value);
+                    logCommand.Parameters.AddWithValue("@IsBot", isBot);
                     await logCommand.ExecuteNonQueryAsync();
                 }
             }
@@ -135,7 +181,7 @@ namespace British_Kingdom_back.Controllers
           {
               await connection.OpenAsync();
 
-              var query = "SELECT TOP (@Limit) VisitedAt, Location FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
+              var query = "SELECT TOP (@Limit) VisitedAt, Location, UserAgent, IsBot FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
               using (var command = new SqlCommand(query, connection))
               {
                   command.Parameters.AddWithValue("@ProfilId", profilId);
@@ -146,9 +192,12 @@ namespace British_Kingdom_back.Controllers
                   {
                       while (await reader.ReadAsync())
                       {
+                          var userAgent = reader.IsDBNull(reader.GetOrdinal("UserAgent")) ? "" : reader.GetString(reader.GetOrdinal("UserAgent"));
                           visits.Add(new
                           {
                               VisitedAt = DateTime.SpecifyKind(reader.GetDateTime(reader.GetOrdinal("VisitedAt")), DateTimeKind.Utc),
+                              IsBot = reader.GetBoolean(reader.GetOrdinal("IsBot")),
+                              Device = DescribeUserAgent(userAgent),
                               Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location"))
                           });
                       }
@@ -210,7 +259,7 @@ namespace British_Kingdom_back.Controllers
 
               var query = @"SELECT TOP (@Limit) Location, COUNT(*) AS Cnt
                             FROM VisitLog
-                            WHERE ProfilId = @ProfilId AND VisitedAt >= @StartDate AND Location IS NOT NULL AND Location <> 'Inconnu'
+                            WHERE ProfilId = @ProfilId AND VisitedAt >= @StartDate AND Location IS NOT NULL AND Location <> 'Inconnu' AND IsBot = 0
                             GROUP BY Location
                             ORDER BY Cnt DESC";
               using (var command = new SqlCommand(query, connection))
