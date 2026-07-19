@@ -193,9 +193,12 @@ namespace British_Kingdom_back.Controllers
                       while (await reader.ReadAsync())
                       {
                           var userAgent = reader.IsDBNull(reader.GetOrdinal("UserAgent")) ? "" : reader.GetString(reader.GetOrdinal("UserAgent"));
+                          var visitedAtUtc = DateTime.SpecifyKind(reader.GetDateTime(reader.GetOrdinal("VisitedAt")), DateTimeKind.Utc);
                           visits.Add(new
                           {
-                              VisitedAt = DateTime.SpecifyKind(reader.GetDateTime(reader.GetOrdinal("VisitedAt")), DateTimeKind.Utc),
+                              // Sérialisé en string à la main : le DateTimeConverter global tronque les DateTime à "yyyy-MM-dd"
+                              // (voulu pour les dates de naissance), ce qui écrasait l'heure de chaque visite.
+                              VisitedAt = visitedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
                               IsBot = reader.GetBoolean(reader.GetOrdinal("IsBot")),
                               Device = DescribeUserAgent(userAgent),
                               Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location"))
