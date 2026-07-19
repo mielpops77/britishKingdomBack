@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
@@ -17,6 +18,8 @@ namespace British_Kingdom_back.Controllers
     {
         private readonly IConfiguration _configuration;
         private static readonly HttpClient _httpClient = new HttpClient();
+        private static readonly ConcurrentDictionary<string, DateTime> _activeVisitors = new ConcurrentDictionary<string, DateTime>();
+        private const int OnlineThresholdSeconds = 90;
 
         public StatistiqueController(IConfiguration configuration)
         {
@@ -181,7 +184,7 @@ namespace British_Kingdom_back.Controllers
           {
               await connection.OpenAsync();
 
-              var query = "SELECT TOP (@Limit) VisitedAt, Location, UserAgent, IsBot FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
+              var query = "SELECT TOP (@Limit) VisitedAt, VisitorIp, Location, UserAgent, IsBot FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
               using (var command = new SqlCommand(query, connection))
               {
                   command.Parameters.AddWithValue("@ProfilId", profilId);
@@ -201,7 +204,8 @@ namespace British_Kingdom_back.Controllers
                               VisitedAt = visitedAtUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
                               IsBot = reader.GetBoolean(reader.GetOrdinal("IsBot")),
                               Device = DescribeUserAgent(userAgent),
-                              Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location"))
+                              Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location")),
+                              VisitorIp = reader.IsDBNull(reader.GetOrdinal("VisitorIp")) ? null : reader.GetString(reader.GetOrdinal("VisitorIp"))
                           });
                       }
                   }
@@ -287,6 +291,41 @@ namespace British_Kingdom_back.Controllers
                   return Ok(locations);
               }
           }
+      }
+
+      [HttpPost("heartbeat")]
+      public IActionResult Heartbeat([FromBody] Statistique statistique)
+      {
+          var ip = GetClientIp();
+          var userAgent = Request.Headers.TryGetValue("User-Agent", out var ua) ? ua.ToString() : string.Empty;
+
+          if (!IsLikelyBot(userAgent))
+          {
+              var key = $"{statistique.ProfilId}:{ip}";
+              _activeVisitors[key] = DateTime.UtcNow;
+          }
+
+          return Ok();
+      }
+
+      [Authorize]
+      [HttpGet("online/{profilId}")]
+      public IActionResult GetOnlineCount(int profilId)
+      {
+          var cutoff = DateTime.UtcNow.AddSeconds(-OnlineThresholdSeconds);
+
+          foreach (var entry in _activeVisitors)
+          {
+              if (entry.Value < cutoff)
+              {
+                  _activeVisitors.TryRemove(entry.Key, out _);
+              }
+          }
+
+          var prefix = $"{profilId}:";
+          var count = _activeVisitors.Keys.Count(k => k.StartsWith(prefix));
+
+          return Ok(new { online = count });
       }
 
       [Authorize]
