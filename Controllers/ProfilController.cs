@@ -166,6 +166,62 @@ namespace VotreNamespace.Controllers
             }
         }
 
+        // Résout un slug d'URL (ex: "love-of-british" dans eleveurconnect.fr/love-of-british)
+        // vers le profil correspondant. On réutilise la colonne DomaineName comme slug de démo :
+        // il suffit d'enregistrer DomaineName = "love-of-british" sur le profil de l'éleveur.
+        // Aucune modification du schéma de base n'est nécessaire.
+        [HttpGet("by-slug/{slug}")]
+        public IActionResult GetProfilBySlug(string slug)
+        {
+            if (string.IsNullOrWhiteSpace(slug))
+            {
+                return BadRequest(new { message = "Slug manquant." });
+            }
+
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Comparaison insensible à la casse et aux espaces de début/fin.
+                using (var command = new SqlCommand("SELECT * FROM Profil WHERE LTRIM(RTRIM(DomaineName)) = @Slug", connection))
+                {
+                    command.Parameters.AddWithValue("@Slug", slug.Trim());
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var profil = new Profil
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
+                                UserType = reader.GetString(reader.GetOrdinal("UserType")),
+                                Siren = reader.GetString(reader.GetOrdinal("Siren")),
+                                Facebook = reader.GetString(reader.GetOrdinal("Facebook")),
+                                Instagram = reader.GetString(reader.GetOrdinal("Instagram")),
+                                Twitter = reader.GetString(reader.GetOrdinal("Twitter")),
+                                Youtube = reader.GetString(reader.GetOrdinal("Youtube")),
+                                Tiktok = reader.GetString(reader.GetOrdinal("Tiktok")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                DomaineName = reader.GetString(reader.GetOrdinal("DomaineName")),
+                            };
+
+                            return Ok(profil);
+                        }
+                        else
+                        {
+                            return NotFound(new { message = "Aucun profil pour ce slug." });
+                        }
+                    }
+                }
+            }
+        }
+
         [HttpPut("{id}")]
         public IActionResult UpdateProfil(int id, [FromBody] Profil updatedProfil)
         {
