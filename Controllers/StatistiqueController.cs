@@ -21,6 +21,67 @@ namespace British_Kingdom_back.Controllers
         private static readonly ConcurrentDictionary<string, DateTime> _activeVisitors = new ConcurrentDictionary<string, DateTime>();
         private const int OnlineThresholdSeconds = 90;
 
+        // La colonne VisitLog.Source existe-t-elle ? Vérifié une fois, puis gardé en mémoire.
+        // En cas d'échec on retente dix minutes plus tard : un hoquet de la base ne doit pas
+        // priver le site de la provenance jusqu'au prochain redémarrage.
+        private static bool _colonneSource;
+        private static DateTime _colonneSourceVue = DateTime.MinValue;
+        private static readonly TimeSpan _colonneSourceRetard = TimeSpan.FromMinutes(10);
+
+        /// <summary>
+        /// S'assure que VisitLog a sa colonne Source, en la créant au besoin.
+        /// Si la base refuse (droits, verrou…), on renvoie false et tout continue comme avant :
+        /// une visite ne doit jamais être perdue à cause de la provenance.
+        /// </summary>
+        private static async Task<bool> ColonneSourceAsync(SqlConnection connection)
+        {
+            if (_colonneSource) return true;
+            if (DateTime.UtcNow - _colonneSourceVue < _colonneSourceRetard) return false;
+            _colonneSourceVue = DateTime.UtcNow;
+
+            try
+            {
+                using (var verifie = new SqlCommand("SELECT COL_LENGTH('VisitLog', 'Source')", connection))
+                {
+                    var trouvee = await verifie.ExecuteScalarAsync();
+                    if (trouvee != null && trouvee != DBNull.Value)
+                    {
+                        _colonneSource = true;
+                        return true;
+                    }
+                }
+
+                using (var ajoute = new SqlCommand("ALTER TABLE VisitLog ADD Source NVARCHAR(60) NULL", connection))
+                {
+                    await ajoute.ExecuteNonQueryAsync();
+                }
+
+                _colonneSource = true;
+            }
+            catch
+            {
+                _colonneSource = false;
+            }
+
+            return _colonneSource;
+        }
+
+        /// <summary>
+        /// Nettoie ce que le site a envoyé : un nom court et lisible, ou rien du tout.
+        /// </summary>
+        private static string? NettoyerSource(string? brut)
+        {
+            if (string.IsNullOrWhiteSpace(brut)) return null;
+
+            var propre = new string(brut.Trim()
+                .Where(c => char.IsLetterOrDigit(c) || c == ' ' || c == '.' || c == '-' || c == '_' || c == '\'' || c == 'é' || c == 'è' || c == 'ê' || c == 'à' || c == 'ç')
+                .ToArray())
+                .Trim();
+
+            if (propre.Length == 0) return null;
+            return propre.Length > 60 ? propre.Substring(0, 60) : propre;
+        }
+
         public StatistiqueController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -157,8 +218,12 @@ namespace British_Kingdom_back.Controllers
                 }
 
                 var location = await ResolveLocationAsync(ip);
+                var source = NettoyerSource(statistique.Source);
+                var avecSource = source != null && await ColonneSourceAsync(connection);
 
-                var logQuery = "INSERT INTO VisitLog (ProfilId, VisitedAt, VisitorIp, Location, UserAgent, IsBot) VALUES (@ProfilId, @VisitedAt, @VisitorIp, @Location, @UserAgent, @IsBot)";
+                var logQuery = avecSource
+                    ? "INSERT INTO VisitLog (ProfilId, VisitedAt, VisitorIp, Location, UserAgent, IsBot, Source) VALUES (@ProfilId, @VisitedAt, @VisitorIp, @Location, @UserAgent, @IsBot, @Source)"
+                    : "INSERT INTO VisitLog (ProfilId, VisitedAt, VisitorIp, Location, UserAgent, IsBot) VALUES (@ProfilId, @VisitedAt, @VisitorIp, @Location, @UserAgent, @IsBot)";
                 using (var logCommand = new SqlCommand(logQuery, connection))
                 {
                     logCommand.Parameters.AddWithValue("@ProfilId", statistique.ProfilId);
@@ -167,6 +232,7 @@ namespace British_Kingdom_back.Controllers
                     logCommand.Parameters.AddWithValue("@Location", location);
                     logCommand.Parameters.AddWithValue("@UserAgent", (object?)userAgent.Substring(0, Math.Min(userAgent.Length, 500)) ?? DBNull.Value);
                     logCommand.Parameters.AddWithValue("@IsBot", isBot);
+                    if (avecSource) logCommand.Parameters.AddWithValue("@Source", source!);
                     await logCommand.ExecuteNonQueryAsync();
                 }
             }
@@ -184,7 +250,10 @@ namespace British_Kingdom_back.Controllers
           {
               await connection.OpenAsync();
 
-              var query = "SELECT TOP (@Limit) VisitedAt, VisitorIp, Location, UserAgent, IsBot FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
+              var avecSource = await ColonneSourceAsync(connection);
+              var query = avecSource
+                  ? "SELECT TOP (@Limit) VisitedAt, VisitorIp, Location, UserAgent, IsBot, Source FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC"
+                  : "SELECT TOP (@Limit) VisitedAt, VisitorIp, Location, UserAgent, IsBot FROM VisitLog WHERE ProfilId = @ProfilId ORDER BY VisitedAt DESC";
               using (var command = new SqlCommand(query, connection))
               {
                   command.Parameters.AddWithValue("@ProfilId", profilId);
@@ -205,7 +274,8 @@ namespace British_Kingdom_back.Controllers
                               IsBot = reader.GetBoolean(reader.GetOrdinal("IsBot")),
                               Device = DescribeUserAgent(userAgent),
                               Location = reader.IsDBNull(reader.GetOrdinal("Location")) ? null : reader.GetString(reader.GetOrdinal("Location")),
-                              VisitorIp = reader.IsDBNull(reader.GetOrdinal("VisitorIp")) ? null : reader.GetString(reader.GetOrdinal("VisitorIp"))
+                              VisitorIp = reader.IsDBNull(reader.GetOrdinal("VisitorIp")) ? null : reader.GetString(reader.GetOrdinal("VisitorIp")),
+                              Source = !avecSource || reader.IsDBNull(reader.GetOrdinal("Source")) ? null : reader.GetString(reader.GetOrdinal("Source"))
                           });
                       }
                   }
@@ -289,6 +359,52 @@ namespace British_Kingdom_back.Controllers
                   }
 
                   return Ok(locations);
+              }
+          }
+      }
+
+      /// <summary>
+      /// Par quel réseau les visiteurs sont arrivés, sur les derniers jours.
+      /// </summary>
+      [Authorize]
+      [HttpGet("sources/{profilId}")]
+      public async Task<IActionResult> GetTopSources(int profilId, [FromQuery] int days = 30, [FromQuery] int limit = 8)
+      {
+          var connectionString = _configuration.GetConnectionString("DefaultConnection");
+          var startDate = DateTime.UtcNow.AddDays(-days);
+
+          using (var connection = new SqlConnection(connectionString))
+          {
+              await connection.OpenAsync();
+
+              if (!await ColonneSourceAsync(connection))
+                  return Ok(new System.Collections.Generic.List<object>());
+
+              var query = @"SELECT TOP (@Limit) Source, COUNT(*) AS Cnt
+                            FROM VisitLog
+                            WHERE ProfilId = @ProfilId AND VisitedAt >= @StartDate AND Source IS NOT NULL AND Source <> '' AND IsBot = 0
+                            GROUP BY Source
+                            ORDER BY Cnt DESC";
+              using (var command = new SqlCommand(query, connection))
+              {
+                  command.Parameters.AddWithValue("@ProfilId", profilId);
+                  command.Parameters.AddWithValue("@StartDate", startDate);
+                  command.Parameters.AddWithValue("@Limit", limit);
+
+                  var sources = new System.Collections.Generic.List<object>();
+                  using (var reader = await command.ExecuteReaderAsync())
+                  {
+                      while (await reader.ReadAsync())
+                      {
+                          sources.Add(new
+                          {
+                              Source = reader.GetString(reader.GetOrdinal("Source")),
+                              Count = reader.GetInt32(reader.GetOrdinal("Cnt"))
+                          });
+                      }
+                  }
+
+                  return Ok(sources);
               }
           }
       }
