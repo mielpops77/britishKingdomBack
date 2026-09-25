@@ -15,9 +15,52 @@ namespace British_Kingdom_back.Controllers
     {
         private readonly IConfiguration _configuration;
 
+        // La colonne Contact.Repondu existe-t-elle ? Vérifié une fois, puis gardé en mémoire ;
+        // en cas d'échec on retente dix minutes plus tard, et les messages continuent de fonctionner.
+        private static bool _colonneRepondu;
+        private static DateTime _colonneReponduVue = DateTime.MinValue;
+        private static readonly TimeSpan _colonneReponduRetard = TimeSpan.FromMinutes(10);
+
         public ContactController(IConfiguration configuration)
         {
             _configuration = configuration;
+        }
+
+        /// <summary>
+        /// S'assure que la table Contact a sa colonne Repondu, en la créant au besoin.
+        /// À appeler avant d'ouvrir un lecteur sur la même connexion.
+        /// </summary>
+        private static bool ColonneRepondu(SqlConnection connection)
+        {
+            if (_colonneRepondu) return true;
+            if (DateTime.UtcNow - _colonneReponduVue < _colonneReponduRetard) return false;
+            _colonneReponduVue = DateTime.UtcNow;
+
+            try
+            {
+                using (var verifie = new SqlCommand("SELECT COL_LENGTH('Contact', 'Repondu')", connection))
+                {
+                    var trouvee = verifie.ExecuteScalar();
+                    if (trouvee != null && trouvee != DBNull.Value)
+                    {
+                        _colonneRepondu = true;
+                        return true;
+                    }
+                }
+
+                using (var ajoute = new SqlCommand("ALTER TABLE Contact ADD Repondu BIT NULL", connection))
+                {
+                    ajoute.ExecuteNonQuery();
+                }
+
+                _colonneRepondu = true;
+            }
+            catch
+            {
+                _colonneRepondu = false;
+            }
+
+            return _colonneRepondu;
         }
 
         [HttpPost]
@@ -115,6 +158,8 @@ namespace British_Kingdom_back.Controllers
             {
                 await connection.OpenAsync();
 
+                var avecRepondu = ColonneRepondu(connection);
+
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@ProfilId", profilId);
@@ -135,6 +180,7 @@ namespace British_Kingdom_back.Controllers
                                 Hour = reader.GetString(reader.GetOrdinal("Hour")),
                                 Email = reader.GetString(reader.GetOrdinal("Email")),
                                 Vue = reader.GetBoolean(reader.GetOrdinal("Vue")),
+                                Repondu = avecRepondu && !reader.IsDBNull(reader.GetOrdinal("Repondu")) && reader.GetBoolean(reader.GetOrdinal("Repondu")),
                                 // Sérialisé en string à la main : le DateTimeConverter global tronque les DateTime à "yyyy-MM-dd"
                                 DateofCrea = dateOfCreaUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
                             };
@@ -191,9 +237,17 @@ namespace British_Kingdom_back.Controllers
                     // DateofCrea/Hour ne sont volontairement pas mis à jour : ce sont des dates de création
                     // immuables, et contact.DateofCrea (venant du corps de la requête) transite par le
                     // DateTimeConverter global qui tronque l'heure à minuit.
-                    using (var command = new SqlCommand("UPDATE Contact SET ProfilId = @ProfilId, Num = @Num, Subject = @Subject, Name = @Name, Message = @Message, Email = @Email, Vue = @Vue WHERE Id = @Id", connection))
+                    // Repondu vaut ISNULL(@Repondu, Repondu) : un écran qui ne parle pas de la réponse
+                    // (la liste d'attente, par exemple) laisse la valeur telle quelle.
+                    var avecRepondu = ColonneRepondu(connection);
+                    var miseAJour = avecRepondu
+                        ? "UPDATE Contact SET ProfilId = @ProfilId, Num = @Num, Subject = @Subject, Name = @Name, Message = @Message, Email = @Email, Vue = @Vue, Repondu = ISNULL(@Repondu, Repondu) WHERE Id = @Id"
+                        : "UPDATE Contact SET ProfilId = @ProfilId, Num = @Num, Subject = @Subject, Name = @Name, Message = @Message, Email = @Email, Vue = @Vue WHERE Id = @Id";
+
+                    using (var command = new SqlCommand(miseAJour, connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
+                        if (avecRepondu) command.Parameters.AddWithValue("@Repondu", (object?)contact.Repondu ?? DBNull.Value);
                         command.Parameters.AddWithValue("@ProfilId", contact.ProfilId);
                         command.Parameters.AddWithValue("@Num", contact.Num);
                         command.Parameters.AddWithValue("@Subject", contact.Subject);

@@ -12,6 +12,13 @@ namespace British_Kingdom_back.Models
         public string Hour { get; set; } = string.Empty;
 
         public Boolean Vue { get; set; }
+
+        /// <summary>
+        /// A-t-on déjà répondu à ce message ? Null veut dire « ne change rien » :
+        /// un écran qui met à jour autre chose n'efface pas la réponse sans le vouloir.
+        /// </summary>
+        public bool? Repondu { get; set; }
+
         public DateTime DateofCrea { get; set; }
 
     }
